@@ -8,22 +8,44 @@
                  [reagent "0.5.0"]])
 
 (require
- '[adzerk.boot-cljs      :refer [cljs]]
- '[adzerk.boot-cljs-repl :refer [cljs-repl start-repl]]
- '[adzerk.boot-reload    :refer [reload]]
- '[pandeiro.boot-http    :refer [serve]])
+  '[clojure.java.io       :as io]
+  '[boot.util             :as util]
+  '[boot.core             :as core]
+  '[adzerk.boot-cljs      :refer [cljs]]
+  '[adzerk.boot-cljs-repl :refer [cljs-repl start-repl]]
+  '[adzerk.boot-reload    :refer [reload]]
+  '[pandeiro.boot-http    :refer [serve]])
+
+(set-env! :source-paths #(conj % "src/scss"))
+    
+(deftask sass
+  []
+  (let [tmp (core/tmp-dir!)]
+    (core/with-pre-wrap fs 
+      (let [in-files (core/input-files fs)
+            in-main (first (core/by-re [#"^(?!_).*\.scss"] in-files))
+            out-dir (io/file tmp "stylesheets")
+            out (io/file out-dir "main.css")]
+        (.mkdirs out-dir)
+        (util/dosh "sassc"
+          "--style" "compressed"
+          (.getPath (core/tmp-file in-main))
+          (.getPath out))
+        (-> fs
+          (core/add-resource tmp)
+          (core/commit!))))))
 
 (deftask build []
   (comp (speak)
-        
-        (cljs)
-        ))
+        (sass)
+        (cljs)))
 
 (deftask run []
   (comp (serve)
         (watch)
         (cljs-repl)
         (reload)
+        (sass)
         (build)))
 
 (deftask production []
@@ -46,3 +68,4 @@
   []
   (comp (development)
         (run)))
+
