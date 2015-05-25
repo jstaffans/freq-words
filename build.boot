@@ -45,7 +45,6 @@
         (watch)
         (cljs-repl)
         (reload)
-        (sass)
         (build)))
 
 (deftask production []
