@@ -1,0 +1,2 @@
+{:require  [freq-words.app]
+ :init-fns [freq-words.app/init]}
