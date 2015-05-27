@@ -1,18 +1,14 @@
 (ns freq-words.app
+  (:require-macros [freq-words.macros :refer [defedn]])
   (:require [reagent.core :as reagent :refer [atom]]))
 
-(defn some-component []
-  [:div
-   [:h3 "I am a component!"]
-   [:p.someclass
-    "I have " [:strong "bold"]
-    [:span {:style {:color "red"}} " and red"]
-    " text."]])
+(defedn words "words.edn")
 
-(defn calling-component []
-  [:div "Parent component"
-   [some-component]])
+(defn group-select-component []
+  [:div
+   [:h1 "Välj grupp"]
+   [:p (str "foo is " (:foo words))]])
 
 (defn init []
-  (reagent/render-component [calling-component]
-                            (.getElementById js/document "container")))
+  (reagent/render-component [group-select-component]
+    (.getElementById js/document "container")))
