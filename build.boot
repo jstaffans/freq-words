@@ -1,5 +1,5 @@
 (set-env!
- :source-paths    #{"src/cljs"}
+ :source-paths    #{"src/clj" "src/cljs" "src/scss"}
  :resource-paths  #{"resources"}
  :dependencies '[[adzerk/boot-cljs      "0.0-2814-4" :scope "test"]
                  [adzerk/boot-cljs-repl "0.1.9"      :scope "test"]
@@ -16,8 +16,6 @@
   '[adzerk.boot-reload    :refer [reload]]
   '[pandeiro.boot-http    :refer [serve]])
 
-(set-env! :source-paths #(conj % "src/scss"))
-    
 (deftask sass
   []
   (let [tmp (core/tmp-dir!)]
