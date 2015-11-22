@@ -34,8 +34,7 @@
           (core/commit!))))))
 
 (deftask build []
-  (comp (speak)
-        (sass)
+  (comp (sass)
         (cljs)))
 
 (deftask run []
