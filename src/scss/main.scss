@@ -1,5 +1,39 @@
 @import 'bootstrap';
+@import 'palette';
 
-.my-form {
-  background: red;
+$default-background-shade: 100;
+
+$font-size-base: 1.1em;
+
+$group-colors: (
+    Green, Light Blue, Blue Grey,
+    Amber, Purple, Lime,
+    Indigo, Teal, Orange,
+    Brown, Yellow, Light Green,
+    Cyan
+);
+
+div, p, span {
+    font-size: $font-size-base;
 }
+
+.group-select {
+    margin-left: 20px;
+}
+
+.word-group {
+    padding: 20px;
+    border: 20px solid white;
+    transition: 0.2s ease;
+
+    &:hover {
+        padding-bottom: 27px;
+        border-bottom: 10px solid white;
+        cursor: pointer;
+    }
+
+    @for $i from 1 through 13 {
+        &.group-#{$i} { background: palette(nth($group-colors, $i), $default-background-shade); }
+	}
+}
+

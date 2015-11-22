@@ -4,10 +4,24 @@
 
 (defedn words "words.edn")
 
+(defn word-group-component
+  [words group-counter]
+  [:div {:class (str "col-md-4 word-group group-" (swap! group-counter inc)) :key words}
+   (str (clojure.string/join ", " words) " …")])
+
+(defn word-group-row-component
+  [groups group-counter]
+  [:div {:class "row"}
+   (for [group groups]
+     (word-group-component (take 3 group) group-counter))
+   [:div {:style {:clear "left"}}]])
+
 (defn group-select-component []
   [:div
-   [:h1 "Välj grupp"]
-   [:p (str "foo is " (:foo words))]])
+   [:h1 {:class "group-select"} "Välj grupp"]
+   (let [group-counter (atom 0)]
+     (for [groups (partition-all 3 (:groups words))]
+       (word-group-row-component groups group-counter)))])
 
 (defn init []
   (reagent/render-component [group-select-component]
