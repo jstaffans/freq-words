@@ -6,12 +6,12 @@
 
 (defn word-group-component
   [words group-counter]
-  [:div {:class (str "col-md-4 word-group group-" (swap! group-counter inc)) :key words}
+  [:div {:class (str "col-md-4 word-group group-" (swap! group-counter inc)) :key (first words)}
    (str (clojure.string/join ", " words) " …")])
 
 (defn word-group-row-component
   [groups group-counter]
-  [:div {:class "row"}
+  [:div {:class "row" :key (-> groups flatten first)}
    (for [group groups]
      (word-group-component (take 3 group) group-counter))
    [:div {:style {:clear "left"}}]])
