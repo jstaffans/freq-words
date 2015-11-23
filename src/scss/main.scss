@@ -1,7 +1,8 @@
 @import 'bootstrap';
 @import 'palette';
 
-$default-background-shade: 100;
+$default-background-shade: 50;
+$select-background-shade: 100;
 
 $font-size-base: 1.1em;
 
@@ -24,16 +25,28 @@ div, p, span {
 .word-group {
     padding: 20px;
     border: 20px solid white;
-    transition: 0.2s ease;
+    opacity: 1;
+    transition: background 0.5s ease;
 
     &:hover {
-        padding-bottom: 27px;
-        border-bottom: 10px solid white;
         cursor: pointer;
     }
 
     @for $i from 1 through 13 {
-        &.group-#{$i} { background: palette(nth($group-colors, $i), $default-background-shade); }
+        &.group-#{$i} {
+            background: palette(nth($group-colors, $i), $default-background-shade);
+
+            &:hover {
+                background: palette(nth($group-colors, $i), $select-background-shade);
+            }
+        }
 	}
+
+	&.not-selected {
+	    visibility: hidden;
+	    opacity: 0;
+	    transition: visibility 0.2s linear, opacity 0.2s linear;
+	}
+
 }
 
