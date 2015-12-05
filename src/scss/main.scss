@@ -6,11 +6,8 @@ $default-background-shade: 50;
 $select-background-shade: 100;
 
 $font-size-base: 1.0em;
+$font-size-medium: 1.3em;
 $font-size-large: 1.8em;
-
-.pull-right {
-  float: right;
-}
 
 $group-colors: (
   Green, Light Blue, Blue Grey,
@@ -24,8 +21,22 @@ div, p, span {
   font-size: $font-size-base;
 }
 
-.group-select {
-  margin-left: 20px;
+.vertical-align {
+  display: flex;
+  align-items: center;
+}
+
+.header-title {
+  @extend h1;
+  margin: 20px 5px;
+}
+
+.header-control {
+  @extend h4;
+
+  input[type=checkbox] {
+    margin-top: 3px;
+  }
 }
 
 .word-col {
@@ -36,7 +47,7 @@ div, p, span {
   padding: 15px;
   border: 15px solid white;
   opacity: 1;
-  transition: visibility 0.4s ease, opacity 0.4s ease, background 0.2s ease;
+  transition: visibility 0.4s ease, opacity 0.4s ease, background 0.3s ease;
   outline: none;
 
   &:hover {

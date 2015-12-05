@@ -25,7 +25,7 @@
 
 (defn word-group-component
   [{:keys [group-index group]}]
-  (let [words (take 3 group)
+  (let [[words more-words] [(take 3 group) (take 5 (drop 3 group))]
         class (str "word-group group-" group-index)
         selected? (= @group-selection group-index)]
 
@@ -38,7 +38,10 @@
             :key       group-index
             :tab-index group-index
             :on-click  #(when (not selected?) (reset! group-selection group-index))}
-      [:div {:class "preview"} (str (clojure.string/join ", " words) " …")]
+      [:div {:class "preview"} (str (clojure.string/join ", " words)
+                                 (if selected? "," " …"))]
+      [:div
+       (when selected? (str (clojure.string/join ", " more-words) " …"))]
       (group-control-component group)]]))
 
 (defn word-group-row-component
@@ -50,7 +53,12 @@
 
 (defn group-select-component []
   [:div
-   [:h1 {:class "group-select"} "Välj grupp"]
+   [:div {:class "row vertical-align"}
+    [:div {:class "col-md-8 header-title"} "Välj grupp"]
+    [:div {:class "col-md-4 header-control"}
+     [:div {:class "form"}
+      (checkbox-component "Slumpmässig ordföljd")]]]
+   [:hr]
    (fore [group-row (->> (:groups words)
                          (map-indexed (fn [i group] (assoc {} :group-index (inc i) :group group)))
                          (partition-all 3))]
