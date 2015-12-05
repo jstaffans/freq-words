@@ -6,6 +6,15 @@
 
 (defonce group-selection (r/atom -1))
 
+(defn group-control-component
+  [group]
+  [:div {:class "controls"}
+   [:span "Slumpmässig ordning"]
+   [:span "Tidtagning"]
+   [:div
+    [:span "Kör!"]
+    [:a {:class "pull-right" :on-click #(reset! group-selection -1)} "Stäng"]]])
+
 (defn word-group-component
   [{:keys [group-index group]}]
   (let [words (take 3 group)
@@ -19,12 +28,7 @@
            :key      group-index
            :on-click #(when (not selected?) (reset! group-selection group-index))}
      [:div {:class "preview"} (str (clojure.string/join ", " words) " …")]
-     [:div {:class "controls"}
-      [:span "Slumpmässig ordning"]
-      [:span "Tidtagning"]
-      [:span "Kör!"]
-      [:div
-       [:a {:on-click #(reset! group-selection -1)} "Stäng"]]]]))
+     (group-control-component group)]))
 
 (defn word-group-row-component
   [groups]
