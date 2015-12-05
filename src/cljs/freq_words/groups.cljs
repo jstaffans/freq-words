@@ -4,20 +4,27 @@
 
 (defedn words "words.edn")
 
-(defonce group-selection (r/atom nil))
+(defonce group-selection (r/atom -1))
 
 (defn word-group-component
   [{:keys [group-index group]}]
   (let [words (take 3 group)
-        class (str "col-md-4 word-group group-" group-index)]
+        class (str "col-md-4 word-group group-" group-index)
+        selected? (= @group-selection group-index)]
     [:div {:class    (str class
-                       (when-let [selection @group-selection]
-                         (if (= selection group-index)
+                       (when (>= @group-selection 0)
+                         (if selected?
                            " selected"
                            " not-selected")))
            :key      group-index
-           :on-click #(reset! group-selection group-index)}
-     (str (clojure.string/join ", " words) " …")]))
+           :on-click #(when (not selected?) (reset! group-selection group-index))}
+     [:div {:class "preview"} (str (clojure.string/join ", " words) " …")]
+     [:div {:class "controls"}
+      [:span "Slumpmässig ordning"]
+      [:span "Tidtagning"]
+      [:span "Kör!"]
+      [:div
+       [:a {:on-click #(reset! group-selection -1)} "Stäng"]]]]))
 
 (defn word-group-row-component
   [groups]

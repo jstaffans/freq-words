@@ -1,52 +1,71 @@
 @import 'bootstrap';
 @import 'palette';
 
+
 $default-background-shade: 50;
 $select-background-shade: 100;
 
-$font-size-base: 1.1em;
+$font-size-base: 1.0em;
+$font-size-large: 1.8em;
+
+.pull-right {
+  float: right;
+}
 
 $group-colors: (
-    Green, Light Blue, Blue Grey,
-    Amber, Purple, Lime,
-    Indigo, Teal, Orange,
-    Brown, Yellow, Light Green,
-    Cyan
+  Green, Light Blue, Blue Grey,
+  Amber, Purple, Lime,
+  Indigo, Teal, Orange,
+  Brown, Yellow, Light Green,
+  Cyan
 );
 
 div, p, span {
-    font-size: $font-size-base;
+  font-size: $font-size-base;
 }
 
 .group-select {
-    margin-left: 20px;
+  margin-left: 20px;
 }
 
 .word-group {
-    padding: 20px;
-    border: 20px solid white;
-    opacity: 1;
-    transition: background 0.5s ease;
+  padding: 20px;
+  border: 20px solid white;
+  opacity: 1;
+  transition: visibility 0.4s ease, opacity 0.4s ease, background 0.4s ease;
+  transition-delay: 0.5s;
 
-    &:hover {
-        cursor: pointer;
+  &:hover {
+    cursor: pointer;
+  }
+
+  @for $i from 0 through 12 {
+    &.group-#{$i} {
+      background: palette(nth($group-colors, ($i + 1)), $default-background-shade);
+
+      &:hover {
+        background: palette(nth($group-colors, ($i + 1)), $select-background-shade);
+      }
     }
+  }
 
-    @for $i from 0 through 12 {
-        &.group-#{$i} {
-            background: palette(nth($group-colors, ($i + 1)), $default-background-shade);
+  &.not-selected {
+    visibility: hidden;
+    opacity: 0;
+    transition: visibility 0.4s ease, opacity 0.4s ease;
+  }
 
-            &:hover {
-                background: palette(nth($group-colors, ($i + 1)), $select-background-shade);
-            }
-        }
-	}
+  .preview {
+    font-size: $font-size-large;
+  }
 
-	&.not-selected {
-	    visibility: hidden;
-	    opacity: 0;
-	    transition: visibility 0.2s linear, opacity 0.2s linear;
-	}
+  .controls {
+    max-height: 0px;
+    overflow: hidden;
+    transition: max-height 0.6s ease;
+  }
 
+  &.selected .controls {
+    max-height: 80px;
+  }
 }
-
