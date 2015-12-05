@@ -28,22 +28,27 @@ div, p, span {
   margin-left: 20px;
 }
 
+.word-col {
+  padding: 5px;
+}
+
 .word-group {
-  padding: 20px;
-  border: 20px solid white;
+  padding: 15px;
+  border: 15px solid white;
   opacity: 1;
-  transition: visibility 0.4s ease, opacity 0.4s ease, background 0.4s ease;
+  transition: visibility 0.4s ease, opacity 0.4s ease, background 0.2s ease;
+  outline: none;
 
   &:hover {
     cursor: pointer;
   }
 
-  @for $i from 0 through 12 {
+  @for $i from 1 through 13 {
     &.group-#{$i} {
-      background: palette(nth($group-colors, ($i + 1)), $default-background-shade);
+      background: palette(nth($group-colors, $i), $default-background-shade);
 
-      &:hover {
-        background: palette(nth($group-colors, ($i + 1)), $select-background-shade);
+      &:focus {
+        background: palette(nth($group-colors, $i), $select-background-shade);
       }
     }
   }
