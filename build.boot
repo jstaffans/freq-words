@@ -21,7 +21,7 @@
   (let [tmp (core/tmp-dir!)]
     (core/with-pre-wrap fs 
       (let [in-files (core/input-files fs)
-            in-main (first (core/by-re [#"^(?!_).*\.scss"] in-files))
+            in-main (first (core/by-re [#"^(?!_).*\.scss$"] in-files))
             out-dir (io/file tmp "stylesheets")
             out (io/file out-dir "main.css")]
         (.mkdirs out-dir)
