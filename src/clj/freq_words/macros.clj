@@ -7,3 +7,9 @@
   [symbol-name edn-name]
   (let [content (edn/read-string (slurp (resource (str "edn/" edn-name))))]
     `(def ~symbol-name ~content)))
+
+(defmacro fore
+  "Eager for"
+  [seq-exprs body-expr]
+  `(doall
+     (for ~seq-exprs ~body-expr)))
