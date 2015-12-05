@@ -32,12 +32,12 @@ div, p, span {
         cursor: pointer;
     }
 
-    @for $i from 1 through 13 {
+    @for $i from 0 through 12 {
         &.group-#{$i} {
-            background: palette(nth($group-colors, $i), $default-background-shade);
+            background: palette(nth($group-colors, ($i + 1)), $default-background-shade);
 
             &:hover {
-                background: palette(nth($group-colors, $i), $select-background-shade);
+                background: palette(nth($group-colors, ($i + 1)), $select-background-shade);
             }
         }
 	}
