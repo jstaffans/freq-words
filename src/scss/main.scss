@@ -33,7 +33,6 @@ div, p, span {
   border: 20px solid white;
   opacity: 1;
   transition: visibility 0.4s ease, opacity 0.4s ease, background 0.4s ease;
-  transition-delay: 0.5s;
 
   &:hover {
     cursor: pointer;
@@ -52,7 +51,6 @@ div, p, span {
   &.not-selected {
     visibility: hidden;
     opacity: 0;
-    transition: visibility 0.4s ease, opacity 0.4s ease;
   }
 
   &.selected {
@@ -66,14 +64,15 @@ div, p, span {
   .controls {
     max-height: 0px;
     overflow: hidden;
-    transition: max-height 0.6s ease;
+    transition: padding 0.4s ease, max-height 0.4s ease;
   }
 
   &.selected .controls {
-    max-height: 80px;
-  }
+    padding-top: 20px;
+    max-height: 100px;
 
-  &.selected .controls a {
-    cursor: pointer;
+    a {
+      cursor: pointer;
+    }
   }
 }

@@ -6,19 +6,24 @@
 
 (defonce group-selection (r/atom -1))
 
+(defn checkbox-component
+  [label]
+  [:div {:class "checkbox"}
+   [:label
+    [:input {:type "checkbox"}]
+    label]])
+
 (defn group-control-component
   [group]
   [:div {:class "controls"}
-   [:span "Slumpmässig ordning"]
-   [:span "Tidtagning"]
    [:div
-    [:span "Kör!"]
-    [:a {:class "pull-right" :on-click #(reset! group-selection -1)} "Stäng"]]])
+    [:a {:class "btn btn-success"} "Kör!"]
+    [:a {:class "btn btn-link pull-right" :on-click #(reset! group-selection -1)} "Stäng"]]])
 
 (defn word-group-component
   [{:keys [group-index group]}]
   (let [words (take 3 group)
-        class (str "col-md-4 word-group group-" group-index)
+        class (str "col-md-4 panel word-group group-" group-index)
         selected? (= @group-selection group-index)]
     [:div {:class    (str class
                        (when (>= @group-selection 0)
