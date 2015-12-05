@@ -28,15 +28,20 @@ div, p, span {
 
 .header-title {
   @extend h1;
-  margin: 20px 5px;
+  margin: 20px 70px 20px 5px;
 }
 
 .header-control {
   @extend h4;
 
+  /* silly way of centering checkbox vertically */
   input[type=checkbox] {
     margin-top: 3px;
   }
+}
+
+.container-groups {
+  margin-top: 100px;
 }
 
 .word-col {

@@ -53,14 +53,15 @@
 
 (defn group-select-component []
   [:div
-   [:div {:class "row vertical-align"}
-    [:div {:class "col-md-8 header-title"} "Välj grupp"]
-    [:div {:class "col-md-4 header-control"}
-     [:div {:class "form"}
-      (checkbox-component "Slumpmässig ordföljd")]]]
-   [:hr]
-   (fore [group-row (->> (:groups words)
-                         (map-indexed (fn [i group] (assoc {} :group-index (inc i) :group group)))
-                         (partition-all 3))]
-     (word-group-row-component group-row))])
+   [:nav {:class "navbar navbar-default navbar-fixed-top"}
+    [:div {:class "container vertical-align"}
+     [:div {:class "col-md-8 header-title"} "Välj grupp"]
+     [:div {:class "col-md-4 header-control"}
+      [:div {:class "form"}
+       (checkbox-component "Slumpmässig ordföljd")]]]]
+   [:div {:class "container container-groups"}
+    (fore [group-row (->> (:groups words)
+                          (map-indexed (fn [i group] (assoc {} :group-index (inc i) :group group)))
+                          (partition-all 3))]
+      (word-group-row-component group-row))]])
 
