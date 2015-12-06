@@ -7,11 +7,9 @@
 (defonce group-selection (r/atom -1))
 
 (defn checkbox-component
-  [label]
-  [:div {:class "checkbox"}
-   [:label
-    [:input {:type "checkbox"}]
-    label]])
+  [label id]
+  (let [id (str "checkbox-" id)]
+    ))
 
 (defn group-control-component
   [group]
@@ -57,8 +55,10 @@
     [:div {:class "container container-header vertical-align"}
      [:div {:class "col-md-8 header-title"} "Välj grupp"]
      [:div {:class "col-md-4 header-control"}
-      [:div {:class "form"}
-       (checkbox-component "Slumpmässig ordföljd")]]]]
+      [:form
+       [:div {:class "checkbox checkbox-success"}
+        [:input {:type "checkbox" :id "checkbox-1"}]
+        [:label {:for "checkbox-1"} "Slumpmässig ordföljd"]]]]]]
    [:div {:class "container container-groups"}
     (fore [group-row (->> (:groups words)
                           (map-indexed (fn [i group] (assoc {} :group-index (inc i) :group group)))

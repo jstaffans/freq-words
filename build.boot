@@ -1,5 +1,5 @@
 (set-env!
- :source-paths    #{"src/clj" "src/cljs" "src/scss"}
+ :source-paths    #{"src/clj" "src/cljs" "src/scss" "bower_components"}
  :resource-paths  #{"resources"}
  :dependencies '[[adzerk/boot-cljs      "0.0-2814-4" :scope "test"]
                  [adzerk/boot-cljs-repl "0.1.9"      :scope "test"]
@@ -19,11 +19,11 @@
 (deftask sass
   []
   (let [tmp (core/tmp-dir!)]
-    (core/with-pre-wrap fs 
+    (core/with-pre-wrap fs
       (let [in-files (core/input-files fs)
-            in-main (first (core/by-re [#"^(?!_).*\.scss$"] in-files))
+            in-main (first (core/by-re [#"^freq-words\.scss$"] in-files))
             out-dir (io/file tmp "stylesheets")
-            out (io/file out-dir "main.css")]
+            out (io/file out-dir "freq-words.css")]
         (.mkdirs out-dir)
         (util/dosh "sassc"
           "--style" "compressed"
