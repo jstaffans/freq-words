@@ -40,8 +40,8 @@
             :on-click  #(when (not selected?) (reset! group-selection group-index))}
       [:div {:class "preview"} (str (clojure.string/join ", " words)
                                  (if selected? "," " …"))]
-      [:div
-       (when selected? (str (clojure.string/join ", " more-words) " …"))]
+      [:div {:class "sub-preview"}
+       (if selected? (str (clojure.string/join ", " more-words) " …"))]
       (group-control-component group)]]))
 
 (defn word-group-row-component
@@ -54,7 +54,7 @@
 (defn group-select-component []
   [:div
    [:nav {:class "navbar navbar-default navbar-fixed-top"}
-    [:div {:class "container vertical-align"}
+    [:div {:class "container container-header vertical-align"}
      [:div {:class "col-md-8 header-title"} "Välj grupp"]
      [:div {:class "col-md-4 header-control"}
       [:div {:class "form"}

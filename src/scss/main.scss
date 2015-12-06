@@ -1,99 +1,93 @@
 @import 'bootstrap';
 @import 'palette';
-
-
-$default-background-shade: 50;
-$select-background-shade: 100;
-
-$font-size-base: 1.0em;
-$font-size-medium: 1.3em;
-$font-size-large: 1.8em;
-
-$group-colors: (
-  Green, Light Blue, Blue Grey,
-  Amber, Purple, Lime,
-  Indigo, Teal, Orange,
-  Brown, Yellow, Light Green,
-  Cyan
-);
+@import 'variables';
+@import 'misc';
 
 div, p, span {
   font-size: $font-size-base;
 }
 
-.vertical-align {
-  display: flex;
-  align-items: center;
-}
+.container-header {
 
-.header-title {
-  @extend h1;
-  margin: 20px 70px 20px 5px;
-}
+  .header-title {
+    @extend h1;
+    margin: 20px 70px 20px 5px;
+  }
 
-.header-control {
-  @extend h4;
+  .header-control {
+    @extend h4;
 
-  /* silly way of centering checkbox vertically */
-  input[type=checkbox] {
-    margin-top: 3px;
+    /* silly way of centering checkbox vertically */
+    input[type=checkbox] {
+      margin-top: 3px;
+    }
   }
 }
 
 .container-groups {
+
   margin-top: 100px;
-}
 
-.word-col {
-  padding: 5px;
-}
-
-.word-group {
-  padding: 15px;
-  border: 15px solid white;
-  opacity: 1;
-  transition: visibility 0.4s ease, opacity 0.4s ease, background 0.3s ease;
-  outline: none;
-
-  &:hover {
-    cursor: pointer;
+  .word-col {
+    padding: 5px;
   }
 
-  @for $i from 1 through 13 {
-    &.group-#{$i} {
-      background: palette(nth($group-colors, $i), $default-background-shade);
+  .word-group {
+    padding: 20px 15px 0 15px;
+    border: 15px solid white;
+    opacity: 1;
+    transition: visibility 0.4s ease, opacity 0.4s ease, background 0.3s ease;
+    outline: none;
 
-      &:focus {
-        background: palette(nth($group-colors, $i), $select-background-shade);
+    &:hover {
+      cursor: pointer;
+    }
+
+    @for $i from 1 through 13 {
+      &.group-#{$i} {
+        background: palette(nth($group-colors, $i), $default-background-shade);
+
+        &:focus {
+          background: palette(nth($group-colors, $i), $select-background-shade);
+        }
+      }
+    }
+
+    &.not-selected {
+      visibility: hidden;
+      opacity: 0;
+    }
+
+    &.selected {
+      cursor: default;
+    }
+
+    .preview {
+      font-size: $font-size-large;
+    }
+
+    .sub-preview {
+      min-height: 20px;
+    }
+
+    .controls {
+      padding-top: 0px;
+      max-height: 0px;
+      overflow: hidden;
+      transition: margin 0.4s ease, padding 0.4s ease, max-height 0.4s ease;
+    }
+
+    &.selected .controls {
+      padding-top: 20px;
+      max-height: 100px;
+      margin-bottom: 13px;
+
+      a {
+        cursor: pointer;
       }
     }
   }
 
-  &.not-selected {
-    visibility: hidden;
-    opacity: 0;
-  }
-
-  &.selected {
-    cursor: default;
-  }
-
-  .preview {
-    font-size: $font-size-large;
-  }
-
-  .controls {
-    max-height: 0px;
-    overflow: hidden;
-    transition: padding 0.4s ease, max-height 0.4s ease;
-  }
-
-  &.selected .controls {
-    padding-top: 20px;
-    max-height: 100px;
-
-    a {
-      cursor: pointer;
-    }
-  }
 }
+
+
